@@ -1,0 +1,32 @@
+{
+  "users": ["alice", "bob", "carol", "dave", "eve"],
+  "resources": ["file_secret", "file_public", "db_admin", "db_readonly", "service_root", "service_user"],
+  "permissions": {
+    "alice":  [0, 1, 0, 1, 0, 1],
+    "bob":    [0, 1, 0, 0, 0, 1],
+    "carol":  [1, 1, 1, 1, 1, 1],
+    "dave":   [0, 0, 0, 1, 0, 0],
+    "eve":    [0, 1, 0, 0, 0, 0]
+  },
+  "high_privilege_resources": ["file_secret", "db_admin", "service_root"],
+  "low_privilege_users": ["bob", "dave", "eve"],
+  "rbac": {
+    "roles": {
+      "admin":     ["file_secret", "file_public", "db_admin", "db_readonly", "service_root", "service_user"],
+      "developer": ["file_public", "db_readonly", "service_user"],
+      "analyst":   ["file_public", "db_readonly"],
+      "guest":     ["file_public"]
+    },
+    "user_roles": {
+      "alice": ["developer"],
+      "bob":   ["guest"],
+      "carol": ["admin"],
+      "dave":  ["analyst"],
+      "eve":   ["guest"]
+    }
+  },
+  "delegation": {
+    "carol_can_delegate_to": ["alice"],
+    "alice_can_delegate_to": ["bob"]
+  }
+}
